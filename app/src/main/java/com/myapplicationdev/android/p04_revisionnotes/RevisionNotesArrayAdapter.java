@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ public class RevisionNotesArrayAdapter extends ArrayAdapter<Note> {
 	ArrayList<Note> notes;
 	int resource;
 	ImageView iv1, iv2, iv3, iv4, iv5;
+	TextView tvContent;
 
 	public RevisionNotesArrayAdapter(Context context, int resource, ArrayList<Note> notes) {
 		super(context, resource, notes);
@@ -34,18 +36,39 @@ public class RevisionNotesArrayAdapter extends ArrayAdapter<Note> {
 
 		Note note = notes.get(position);
 
+
+		iv1 = (ImageView)rowView.findViewById(R.id.imageView1star);
+		iv2 = (ImageView)rowView.findViewById(R.id.imageView2star);
+		iv3 = (ImageView)rowView.findViewById(R.id.imageView3star);
+		iv4 = (ImageView)rowView.findViewById(R.id.imageView4star);
+		iv5 = (ImageView)rowView.findViewById(R.id.imageView5star);
+		tvContent = (TextView)rowView.findViewById(R.id.textViewNote);
+
 		//Check if the property for starts >= 5, if so, "light" up the stars
-		if (/*stars >= 5*/) {
+		String content = note.getNoteContent();
+		tvContent.setText(content);
+		String stars = note.getStars();
+		if (stars.contentEquals("5")) {
 			iv5.setImageResource(android.R.drawable.btn_star_big_on);
 			iv4.setImageResource(android.R.drawable.btn_star_big_on);
 			iv3.setImageResource(android.R.drawable.btn_star_big_on);
 			iv2.setImageResource(android.R.drawable.btn_star_big_on);
 			iv1.setImageResource(android.R.drawable.btn_star_big_on);
+		}else if(stars.contentEquals("4")){
+			iv4.setImageResource(android.R.drawable.btn_star_big_on);
+			iv3.setImageResource(android.R.drawable.btn_star_big_on);
+			iv2.setImageResource(android.R.drawable.btn_star_big_on);
+			iv1.setImageResource(android.R.drawable.btn_star_big_on);
+		}else if(stars.contentEquals("3")){
+			iv3.setImageResource(android.R.drawable.btn_star_big_on);
+			iv2.setImageResource(android.R.drawable.btn_star_big_on);
+			iv1.setImageResource(android.R.drawable.btn_star_big_on);
+		}else if(stars.contentEquals("2")){
+			iv2.setImageResource(android.R.drawable.btn_star_big_on);
+			iv1.setImageResource(android.R.drawable.btn_star_big_on);
+		}else{
+			iv1.setImageResource(android.R.drawable.btn_star_big_on);
 		}
-
 		return rowView;
 	}
-
-
-
 }
